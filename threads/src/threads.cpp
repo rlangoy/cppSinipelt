@@ -20,6 +20,12 @@ void AddToSharedData(int value) {
 }
 
 int main() {
+
+    const int theAnswer = 42;
+    auto x = theAnswer;
+    auto y = &theAnswer;
+
+
     std::thread t1(AddToSharedData, 10);
     std::thread t2(AddToSharedData, 20);
     std::thread t3(AddToSharedData, 30);
