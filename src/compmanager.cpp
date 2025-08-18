@@ -122,6 +122,16 @@ public:
 
 // ----------------- Test -------------------
 int main() {
+
+
+	std::vector <int> vec = { 1, 2, 3, 4, 5 };
+
+    for(auto& i : vec) {
+        std::cout << i << " ";
+	}
+
+
+
     ComponentManager manager;
 
     manager.AddComponent(std::make_unique<RenderComponent>(1));
