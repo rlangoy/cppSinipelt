@@ -31,6 +31,7 @@ class RenderComponent : public Component, public Drawable {
     int layer = 0;
 public:
     RenderComponent(int l = 0) : layer(l) {}
+
     void Update() override {
         std::cout << "Updating Render Component (layer=" << layer << ")\n";
     }
@@ -107,7 +108,7 @@ public:
         }
     }
 
-    // New: serialize all components to a single string
+    // Serialize all components to a single string
     std::string SerializeAll() {
         std::ostringstream oss;
         for (auto& [type, compList] : components) {
