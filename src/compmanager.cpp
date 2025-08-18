@@ -68,7 +68,7 @@ private:
 
 public:
     void AddComponent(std::unique_ptr<Component> comp) {
-        components[typeid(*comp)].push_back(std::move(comp));
+        components[typeid(Component)].push_back(std::move(comp));
     }
 
     template <typename T>
@@ -99,15 +99,16 @@ public:
     }
 
     void UpdateAll() {
-        for (auto& [type, compList] : components) {
-            for (auto& comp : compList) {
-                comp->Update();
+        for (auto &kv : components) {
+            auto &compList = kv.second;
+            for (auto &compPtr : compList) {
+                compPtr->Update();
             }
         }
     }
 
     // New: serialize all components to a single string
-    std::string SerializeAll() const {
+    std::string SerializeAll() {
         std::ostringstream oss;
         for (auto& [type, compList] : components) {
             for (auto& comp : compList) {
