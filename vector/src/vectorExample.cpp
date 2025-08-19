@@ -6,7 +6,7 @@
 // Prints the elements in the half-open range [b, e) to std::cout,
   // separated by spaces, followed by a trailing newline.
   //
-  /  // Requirements:
+  // Requirements:
   //   - It meets InputIterator requirements (copyable, !=, *, ++).
   //   - *b is stream-insertable into std::ostream (operator<< defined).
   //   - [b, e) is a valid range.
