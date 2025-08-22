@@ -1,9 +1,10 @@
-cd e#include <iostream>
+#include <iostream>
 #include <unordered_map>
 #include <memory>
 #include <typeindex>
 #include <vector>
 #include <sstream>
+#include <ranges>
 
 // Base component
 class Component {
@@ -77,8 +78,8 @@ public:
         std::vector<T*> result;
         auto it = components.find(typeid(T));
         if (it != components.end()) {
-            for (auto& c : it->second) {
-                if (auto ptr = dynamic_cast<T*>(c.get())) {
+            for (auto& comp : it->second) {
+                if (auto ptr = dynamic_cast<T*>(comp.get())) {
                     result.push_back(ptr);
                 }
             }
@@ -100,8 +101,7 @@ public:
     }
 
     void UpdateAll() {
-        for (auto &kv : components) {
-            auto &compList = kv.second;
+        for (auto& [type, compList] : components) {            
             for (auto &compPtr : compList) {
                 compPtr->Update();
             }
@@ -111,7 +111,7 @@ public:
     // Serialize all components to a single string
     std::string SerializeAll() {
         std::ostringstream oss;
-        for (auto& [type, compList] : components) {
+        for(auto& compList : std::views::values(components)) {
             for (auto& comp : compList) {
                 oss << comp->Serialize() << "\n";
             }
@@ -129,8 +129,6 @@ int main() {
     for(auto& i : vec) {
         std::cout << i << " ";
 	}
-
-
 
     ComponentManager manager;
 
